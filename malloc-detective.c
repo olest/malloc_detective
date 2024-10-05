@@ -21,8 +21,9 @@ void __attribute__((constructor)) at_launch()
     struct mallinfo2 info = mallinfo2();
     
     printf("At launch:");
-    printf("    total allocated space:  %lu bytes\n", info.uordblks);
-    printf("    total free space:       %lu bytes\n", info.fordblks);
+    printf("    total non-mmapped bytes  (arena): %zu\n", info.arena);
+    printf("    total allocated bytes (wordblks): %lu\n", info.uordblks);
+    printf("    total free bytes      (fordblks): %lu\n", info.fordblks);
 }
 
 void __attribute__((destructor)) at_end() 
@@ -30,8 +31,9 @@ void __attribute__((destructor)) at_end()
     struct mallinfo2 info = mallinfo2();
     
     printf("Summary:");
-    printf("    total allocated space:  %lu bytes\n", info.uordblks);
-    printf("    total free space:       %lu bytes\n", info.fordblks);
+    printf("    total non-mmapped bytes  (arena): %zu\n", info.arena);
+    printf("    total allocated bytes (wordblks): %lu\n", info.uordblks);
+    printf("    total free bytes      (fordblks): %lu\n", info.fordblks);
 }
 
 static void init_detective(void)
